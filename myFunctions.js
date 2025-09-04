@@ -66,4 +66,22 @@ function caesarCipher(input, offset)
     return input.split('').map((letter) => getCipheredLetter(letter, offset)).join('');
 }
 
-module.exports = {capitalize, reverseString, calculator, caesarCipher};
+function analyzeArray(array)
+{
+    let averageValue = 0;
+
+    if(array.length !== 0)
+    {
+        const sum = array.reduce((acc, currVal) => { return acc + currVal}, 0);
+        averageValue = sum / array.length;
+    }
+
+    return {
+            average: averageValue,
+            min: array.reduce((acc, currVal) => {return Math.min(acc, currVal)}, array.length > 0? array[0] : 0),
+            max: array.reduce((acc, currVal) => {return Math.max(acc, currVal)}, array.length > 0? array[0] : 0),
+            length: array.length
+        };
+}
+
+module.exports = {capitalize, reverseString, calculator, caesarCipher, analyzeArray};
