@@ -20,4 +20,50 @@ const calculator = {
     multiply(a,b){ return a*b;},
 }
 
-module.exports = {capitalize, reverseString, calculator};
+function caesarCipher(input, offset)
+{
+    function Range(min, max)
+    {
+        this.min = min;
+        this.max = max;
+        this.inRange = inRange;
+        function inRange(letter) { 
+            const code = letter.charCodeAt(0);
+            return code >= this.min && code <= this.max;
+        };
+    }
+    const lowercaseRange = new Range(97, 122);
+    const uppercaseRange = new Range(65, 90);
+
+    function getCipheredLetter(letter, offset)
+    {
+        let letterRange = null;
+
+        if(lowercaseRange.inRange(letter))
+        {
+            letterRange = lowercaseRange;
+        }
+        else if(uppercaseRange.inRange(letter))
+        {
+            letterRange = uppercaseRange;
+        }
+        else
+        {
+            //Do not shift if not a letter
+            return letter;
+        }
+
+        let newLetterCode = letter.charCodeAt(0) + offset;
+
+        if(newLetterCode > letterRange.max)
+        {
+            newLetterCode = letterRange.min + (newLetterCode - letterRange.max - 1);
+        }
+
+        return String.fromCharCode(newLetterCode);
+    }
+
+    return input.split('').map((letter) => getCipheredLetter(letter, offset)).join('');
+}
+
+module.exports = {capitalize, reverseString, calculator, caesarCipher};
