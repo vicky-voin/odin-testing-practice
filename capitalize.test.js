@@ -1,4 +1,4 @@
-import capitalize from "./myFunctions"
+import {capitalize} from "./myFunctions"
 
 test('capitalizes the word', () =>
 {
